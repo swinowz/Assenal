@@ -5,7 +5,18 @@
             "object": {   
                 "tags": ["enum", "port", "network", "tcp"],
                 "description": "All TCP port scan with NSE scripts",
-                "command": "nmap -sS -sV -sC -T4 -p- $ip",
+                "command": "sudo nmap -sS -sV -sC -T4 -p- $ip",
+                "args": [
+                    "ip"
+                ]
+            }
+        },
+        {
+            "title": "ping",
+            "object": {   
+                "tags": ["enum", "port", "network", "tcp"],
+                "description": "All TCP port scan with NSE scripts",
+                "command": "ping $ip",
                 "args": [
                     "ip"
                 ]

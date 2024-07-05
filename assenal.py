@@ -10,19 +10,15 @@ from rich.prompt import Prompt
 from rich.live import Live
 from rich.table import Table
 from simple_term_menu import TerminalMenu
-import time
+import subprocess
 
 def signal_handler(sig, frame):
-    # os.system('clear')
     print('Interrupted')
-    # os.system('clear')
     sys.exit(0)
 
 def search():
     usersearch = (Prompt.ask("[red]Search")).lower()
     finds = []
-    arguments = []
-    
 
     with open(DB_PATH, 'r') as db_file:            
         db_data = json.load(db_file)
@@ -41,8 +37,6 @@ def search():
     options = finds
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
-    console.print(menu_entry_index)
-    console.print(options[menu_entry_index])
     choice = options[menu_entry_index]
     for tool in tools:
         if tool['title'] == choice:
@@ -51,15 +45,18 @@ def search():
             for arg in tool['object']['args']:
                 value = Prompt.ask(f"{arg} = ")
                 command = command.replace(f"${arg}", value)
-                console.log(command)
-                
 
-    return None
+            # Execute the command in the terminal
+            try:
+                subprocess.run(command, shell=True, check=True)
+            except subprocess.CalledProcessError as e:
+                print(f"Command failed with error: {e}")
 
 def mainMenu(menutext="Assenal", clearscreen=True):
     if clearscreen:
         os.system('clear')
     house_art = """
+
 __
  /  \\
 /____\\
@@ -88,7 +85,6 @@ def main():
         search() 
 
 if __name__ == "__main__":
-    # CONST
     DB_PATH = "db.json"
 
     signal.signal(signal.SIGINT, signal_handler)
