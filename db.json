@@ -1,11 +1,11 @@
 {
     "tools": [  
         {
-            "title": "nmap",
+            "title": "nmap TCP",
             "object": {   
                 "tags": ["enum", "port", "network", "tcp"],
                 "description": "All TCP port scan with NSE scripts",
-                "command": "nmap -sS -sV -sC -T4 -p- ",
+                "command": "nmap -sS -sV -sC -T4 -p-",
                 "args": [
                     "ip"
                 ]
@@ -16,12 +16,80 @@
             "object": {   
                 "tags": ["banner grab", "port", "network", "tcp"],
                 "description": "TCP/UDP client to connect to any server",
-                "command": "nc -v ",
+                "command": "nc -v",
                 "args": [
                     "ip",
                     "port"
                 ]
             }
+        },
+        {
+            "title": "nmap UDP",
+            "object": {   
+                "tags": ["enum", "port", "network", "udp"],
+                "description": "All UDP port scan with NSE scripts",
+                "command": "nmap -sU -sV -sC -T4 -p-",
+                "args": [
+                    "ip"
+                ]
+            }
+        },
+        {
+            "title": "depix",
+            "object": {   
+                "tags": ["image", "deobfuscation", "text"],
+                "description": "Tool to reconstruct pixelated text from an image",
+                "command": "python depix.py",
+                "args": [
+                    "image_path"
+                ]
+            }
+        },
+        {
+            "title": "binwalk",
+            "object": {   
+                "tags": ["binary", "firmware", "extraction"],
+                "description": "Tool for analyzing, reverse engineering, and extracting firmware images",
+                "command": "binwalk",
+                "args": [
+                    "file"
+                ]
+            }
+        },
+        {
+            "title": "chisel",
+            "object": {   
+                "tags": ["proxy", "tunnel", "network"],
+                "description": "A fast TCP/UDP tunnel over HTTP",
+                "command": "chisel",
+                "args": [
+                    "server/client",
+                    "options"
+                ]
+            }
+        },
+        {
+            "title": "sshuttle",
+            "object": {   
+                "tags": ["vpn", "network", "proxy"],
+                "description": "Transparent proxy server that works as a poor man's VPN",
+                "command": "sshuttle",
+                "args": [
+                    "options",
+                    "host"
+                ]
+            }
+        },
+        {
+            "title": "linpeas",
+            "object": {   
+                "tags": ["enumeration", "privilege escalation", "linux"],
+                "description": "A script that searches for possible privilege escalation paths on Linux/Unix systems",
+                "command": "linpeas.sh",
+                "args": [
+                    "options"
+                ]
+            }
         }
     ]
-  }
+}
