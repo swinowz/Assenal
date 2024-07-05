@@ -41,6 +41,20 @@ def search():
     options = finds
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
+    console.print(menu_entry_index)
+    console.print(options[menu_entry_index])
+    choice = options[menu_entry_index]
+    for tool in tools:
+        if tool['title'] == choice:
+            command = tool["object"]["command"]
+            console.print(tool['object']['args'])
+            for arg in tool['object']['args']:
+                value = Prompt.ask(f"{arg} = ")
+                command = command.replace(f"${arg}", value)
+                console.log(command)
+                
+
+    return None
 
 def mainMenu(menutext="Assenal", clearscreen=True):
     if clearscreen:
@@ -51,6 +65,7 @@ __
 /____\\
 |    ||
 |_[]_||
+
     """
 
     console.print(house_art, style="red", justify="center")
