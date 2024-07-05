@@ -50,11 +50,12 @@ def search():
                 value = Prompt.ask(f"{arg}")
                 command = command.replace(f"${arg}", value)
             try:
-                console.print(f"Here's your command: [bold blue]{command}")
+                console.print(f"Here's your command: [bold yellow]{command}")
                 check = (Prompt.ask("[green]Run (R) | [blue] Copy (C) | [red] Quit (Q)")).lower()
-                match check:
+                match check[0]:
                     case "r":
                         subprocess.run(command, shell=True, check=True)
+                        exit(0)
                     case "c":
                         pyperclip.copy(command)
                         exit(0)
@@ -81,12 +82,11 @@ def mainMenu(menutext="Assenal", clearscreen=True):
     text.stylize("bold")
     text.stylize("size 40")
     console.print(text, justify="center")
-    
+        
 def main():
     search_completed = False
     mainMenu(clearscreen=True)
-    while not search_completed:
-        search() 
+    search() 
 
 if __name__ == "__main__":
     DB_PATH = "db.json"
