@@ -1,0 +1,26 @@
+{
+    "tools": [  
+        {
+            "title": "nmap",
+            "object": {   
+                "tags": ["enum", "port", "network", "tcp"],
+                "description": "All TCP port scan with NSE scripts",
+                "command": "nmap -sS -sV -sC -T4 -p-",
+                "args": [
+                    "ip"
+                ]
+            }
+        },
+        {
+            "title": "netcat",
+            "object": {   
+                "tags": ["enum", "port", "network", "tcp"],
+                "description": "All TCP port scan with NSE scripts",
+                "command": "nmap -sS -sV -sC -T4 -p-",
+                "args": [
+                    "ip"
+                ]
+            }
+        }
+    ]
+  }
