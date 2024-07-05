@@ -30,7 +30,7 @@ def search():
     table.add_column("Command")
     with Live(table, refresh_per_second=4):
         for tool in tools:
-            if usersearch == "*" or usersearch in tool['title'] or usersearch in tool['object']['command'] or usersearch in tool['object']['description']:
+            if usersearch == "*" or usersearch in tool['title'].lower() or usersearch in tool['object']['command'].lower() or usersearch in tool['object']['description'].lower():
                 finds.append(tool['title'])
                 table.add_row(f"[green]{tool['title']}", f"{tool['object']['description']}", f"{tool['object']['command']}")
 
@@ -41,14 +41,20 @@ def search():
     for tool in tools:
         if tool['title'] == choice:
             command = tool["object"]["command"]
-            console.print(tool['object']['args'])
             for arg in tool['object']['args']:
-                value = Prompt.ask(f"{arg} = ")
+                value = Prompt.ask(f"{arg}")
                 command = command.replace(f"${arg}", value)
-
-            # Execute the command in the terminal
             try:
-                subprocess.run(command, shell=True, check=True)
+                console.print(f"Here's your command: [bold blue]{command}")
+                check = (Prompt.ask("[green]Run (R) | [blue] Copy (C) | [red] Quit (Q)")).lower()
+                match check:
+                    case "r":
+                        subprocess.run(command, shell=True, check=True)
+                    case "c":
+                        pyperclip.copy(command)
+                    case "q":
+                        exit(0)
+                
             except subprocess.CalledProcessError as e:
                 print(f"Command failed with error: {e}")
 
