@@ -21,6 +21,7 @@ def signal_handler(sig, frame):
 def search():
     usersearch = (Prompt.ask("[red]Search")).lower()
     finds = []
+    arguments = []
     
 
     with open(DB_PATH, 'r') as db_file:            
@@ -33,22 +34,10 @@ def search():
     table.add_column("Command")
     with Live(table, refresh_per_second=4):
         for tool in tools:
-            if usersearch == "*":
+            if usersearch == "*" or usersearch in tool['title'] or usersearch in tool['object']['command'] or usersearch in tool['object']['description']:
                 finds.append(tool['title'])
                 table.add_row(f"[green]{tool['title']}", f"{tool['object']['description']}", f"{tool['object']['command']}")
-                continue
-            if usersearch in tool['title']:
-                finds.append(tool['title'])
-                table.add_row(f"[green]{tool['title']}", f"{tool['object']['description']}", f"{tool['object']['command']}")
-                continue
-            if usersearch in tool['object']['command']:
-                finds.append(tool['title'])
-                table.add_row(f"[green]{tool['title']}", f"{tool['object']['description']}", f"{tool['object']['command']}")
-                continue
-            if usersearch in tool['object']['description']:
-                finds.append(tool['title'])
-                table.add_row(f"[green]{tool['title']}", f"{tool['object']['description']}", f"{tool['object']['command']}")
-                continue
+
     options = finds
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
@@ -60,8 +49,8 @@ def mainMenu(menutext="Assenal", clearscreen=True):
 __
  /  \\
 /____\\
-|    |
-|_[]_|
+|    ||
+|_[]_||
     """
 
     console.print(house_art, style="red", justify="center")

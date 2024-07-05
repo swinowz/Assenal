@@ -5,7 +5,7 @@
             "object": {   
                 "tags": ["enum", "port", "network", "tcp"],
                 "description": "All TCP port scan with NSE scripts",
-                "command": "nmap -sS -sV -sC -T4 -p-",
+                "command": "nmap -sS -sV -sC -T4 -p- ",
                 "args": [
                     "ip"
                 ]
@@ -16,7 +16,7 @@
             "object": {   
                 "tags": ["banner grab", "port", "network", "tcp"],
                 "description": "TCP/UDP client to connect to any server",
-                "command": "nc -v",
+                "command": "nc -v ",
                 "args": [
                     "ip",
                     "port"
