@@ -13,6 +13,7 @@ from simple_term_menu import TerminalMenu
 import subprocess
 import pyperclip
 from random import *
+import time
 
 def signal_handler(sig, frame):
     print('Interrupted')
@@ -47,8 +48,17 @@ def search():
         if tool['title'] == choice:
             command = tool["object"]["command"]
             for arg in tool['object']['args']:
-                value = Prompt.ask(f"{arg}")
-                command = command.replace(f"${arg}", value)
+                try:
+                    defaultval =  tool['object']['defaults'][arg]
+                except KeyError as e:
+                    defaultval = None
+                value = Prompt.ask(f"{arg}", default=defaultval)
+                if (value == None) or (value == " "):
+                    console.log("[red]You enter blank value, going back to search...")
+                    time.sleep(2)
+                    main()
+                else:
+                    command = command.replace(f"${arg}", value)
             try:
                 console.print(f"Here's your command: [bold yellow]{command}")
                 check = (Prompt.ask("[green]Run (R) | [blue] Copy (C) | [red] Quit (Q)")).lower()

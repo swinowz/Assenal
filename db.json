@@ -8,7 +8,8 @@
                 "command": "sudo nmap -sS -sV -sC -T4 -p- $ip",
                 "args": [
                     "ip"
-                ]
+                ],
+                "defaults": {}
             }
         },
         {
@@ -19,7 +20,8 @@
                 "command": "ping $ip",
                 "args": [
                     "ip"
-                ]
+                ],
+                "defaults": {}
             }
         },
         {
@@ -31,7 +33,8 @@
                 "args": [
                     "ip",
                     "port"
-                ]
+                ],
+                "defaults": {}
             }
         },
         {
@@ -43,7 +46,10 @@
                 "args": [
                     "wordlist",
                     "url"
-                ]
+                ],
+                "defaults": {
+                    "wordlist": "/usr/share/wordlists/dirb/common.txt"
+                }
             }
         }
     ]
