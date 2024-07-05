@@ -33,6 +33,18 @@
                     "port"
                 ]
             }
+        },
+        {
+            "title": "gobuster",
+            "object": {   
+                "tags": "enum http https directory web",
+                "description": "Gobuster directory enumeration",
+                "command": "gobuster dir -k -w $wordlist -u $url",
+                "args": [
+                    "wordlist",
+                    "url"
+                ]
+            }
         }
     ]
 }
