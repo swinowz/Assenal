@@ -1,8 +1,8 @@
 {
-    "tools": [  
+    "tools": [
         {
             "title": "nmap TCP",
-            "object": {   
+            "object": {
                 "tags": "enum port network tcp",
                 "description": "All TCP port scan with NSE scripts",
                 "command": "sudo nmap -sS -sV -sC -T4 -p- $ip",
@@ -13,10 +13,25 @@
             }
         },
         {
+            "title": "nmap",
+            "object": {
+                "tags": "enum port netword ip",
+                "description": "scan network open pors",
+                "command": "sudo nmap -ss -sv -sc -t4 -p- $ip",
+                "args": [
+                    "ip",
+                    "test",
+                    "arg3",
+                    "aerg2"
+                ],
+                "defaults": {}
+            }
+        },
+        {
             "title": "ping",
-            "object": {   
-                "tags": "network icmp",
-                "description": "Send ICMP request to IP",
+            "object": {
+                "tags": "network scan ip",
+                "description": "scan ip",
                 "command": "ping $ip",
                 "args": [
                     "ip"
@@ -25,31 +40,25 @@
             }
         },
         {
-            "title": "netcat",
-            "object": {   
-                "tags": "banner grab port network tcp",
-                "description": "TCP/UDP client to connect to any server",
-                "command": "nc -v $ip $port",
+            "title": "pa",
+            "object": {
+                "tags": "pa",
+                "description": "pa",
+                "command": "pa",
                 "args": [
-                    "ip",
-                    "port"
+                    "pa"
                 ],
                 "defaults": {}
             }
         },
         {
-            "title": "gobuster",
-            "object": {   
-                "tags": "enum http https directory web",
-                "description": "Gobuster directory enumeration",
-                "command": "gobuster dir -k -w $wordlist -u $url",
-                "args": [
-                    "wordlist",
-                    "url"
-                ],
-                "defaults": {
-                    "wordlist": "/usr/share/wordlists/dirb/common.txt"
-                }
+            "title": "",
+            "object": {
+                "tags": "",
+                "description": "",
+                "command": "",
+                "args": [],
+                "defaults": {}
             }
         }
     ]

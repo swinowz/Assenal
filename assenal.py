@@ -19,10 +19,40 @@ def signal_handler(sig, frame):
     print('Interrupted')
     sys.exit(0)
 
+def json_write(new_command, file='db.json'):
+    with open(file, 'r+') as f:
+        data = json.load(f)
+        data["tools"].append(new_command)
+        f.seek(0)
+        json.dump(data, f, indent=4)
+
+def add_custom_command():
+    console.log("Adding custom command")
+    custom_name = (Prompt.ask("[green]Command title")).lower()
+    custom_tags = (Prompt.ask("[green]Command tags (ex : tag1 tag2 tag3)")).lower()
+    custom_description = (Prompt.ask("[green]Command description")).lower()
+    custom_command = (Prompt.ask("[green]Full command, add $ before args ( ex : ping $ip)")).lower()
+    custom_args = (Prompt.ask("[green]All args, in one line like tags (ex: ip wordlist file pass user)")).lower()
+    new_command = {
+        "title": custom_name,
+        "object": {
+            "tags": custom_tags,
+            "description": custom_description,
+            "command": custom_command,
+            "args": custom_args.split(),
+            "defaults": {}
+        }
+    }
+    json_write(new_command)
+
+
 def search():
     usersearch = (Prompt.ask("[red]Search")).lower()
-    finds = []
+    if usersearch == "add":
+        add_custom_command()
+        usersearch = (Prompt.ask("[red]Search")).lower()
 
+    finds = []
     with open(DB_PATH, 'r') as db_file:            
         db_data = json.load(db_file)
         tools = [tool for tool in db_data['tools']]
