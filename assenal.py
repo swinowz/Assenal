@@ -48,11 +48,21 @@ def add_custom_command():
 
 def search():
     usersearch = (Prompt.ask("[red]Search")).lower()
+    finds = []
+
+    if usersearch == "":
+        console.log("Empty search, going back to main")
+        time.sleep(.5)
+        main()
+        
     if usersearch == "add":
         add_custom_command()
-        usersearch = (Prompt.ask("[red]Search")).lower()
+        main()
 
-    finds = []
+    if usersearch in ("quit q"):
+        exit()
+
+
     with open(DB_PATH, 'r') as db_file:            
         db_data = json.load(db_file)
         tools = [tool for tool in db_data['tools']]
@@ -61,6 +71,7 @@ def search():
     table.add_column("Title")
     table.add_column("Description")
     table.add_column("Command")
+
     with Live(table, refresh_per_second=4):
         for tool in tools:
             if (usersearch == "*" or usersearch in tool['title'].lower() or
@@ -116,7 +127,7 @@ def mainMenu(menutext="Assenal", clearscreen=True):
         os.system('clear')
     house_art = artGen()
 
-    console.print(house_art, style="cyan", justify="center")
+    #console.print(house_art, style="cyan", justify="center")
 
     text = Text("\n" + menutext)
     text.stylize("bold")
