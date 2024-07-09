@@ -4,7 +4,6 @@ import os
 import json
 from rich.console import Console
 from rich.text import Text
-from rich.layout import Layout
 from rich import print
 from rich.prompt import Prompt
 from rich.live import Live
@@ -27,7 +26,7 @@ def json_write(new_command, file='db.json'):
         json.dump(data, f, indent=4)
 
 def add_custom_command():
-    console.log("Adding custom command")
+    console.print("Adding custom command")
     custom_name = (Prompt.ask("[green]Command title")).lower()
     custom_tags = (Prompt.ask("[green]Command tags (ex : tag1 tag2 tag3)")).lower()
     custom_description = (Prompt.ask("[green]Command description")).lower()
@@ -49,19 +48,19 @@ def add_custom_command():
 def search():
     usersearch = (Prompt.ask("[red]Search")).lower()
     finds = []
+    options = []
 
     if usersearch == "":
-        console.log("Empty search, going back to main")
+        console.print("[red]Empty search, going back to search")
         time.sleep(.5)
         main()
-        
+
     if usersearch == "add":
         add_custom_command()
         main()
 
-    if usersearch in ("quit q"):
+    if usersearch == "q" or usersearch == "quit":
         exit()
-
 
     with open(DB_PATH, 'r') as db_file:            
         db_data = json.load(db_file)
@@ -80,8 +79,15 @@ def search():
                usersearch in tool['object']['tags'].lower()):
                 finds.append(tool['title'])
                 table.add_row(f"[green]{tool['title']}", f"{tool['object']['description']}", f"{tool['object']['command']}")
-
+###############################
     options = finds
+    #console.log(len(finds))
+    if len(finds) == 0:
+        console.print("[red] No results found, going back to search")
+        time.sleep(.5)
+        exit()
+###############################
+
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
     choice = options[menu_entry_index]
@@ -95,7 +101,7 @@ def search():
                     defaultval = None
                 value = Prompt.ask(f"{arg}", default=defaultval)
                 if (value == None) or (value == " "):
-                    console.log("[red]You enter blank value, going back to search...")
+                    console.print("[red]You entereda a blank value, going back to search...")
                     time.sleep(2)
                     main()
                 else:
