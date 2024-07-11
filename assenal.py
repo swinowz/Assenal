@@ -55,11 +55,11 @@ def search():
         time.sleep(.5)
         main()
 
-    if usersearch == "add":
+    if usersearch == "/add":
         add_custom_command()
         main()
 
-    if usersearch == "q" or usersearch == "quit":
+    if usersearch == "/q" or usersearch == "/quit":
         exit()
 
     with open(DB_PATH, 'r') as db_file:            
